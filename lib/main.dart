@@ -7,8 +7,13 @@ class PerguntasApp extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return MaterialApp(
-      home: Text('Ola mundo'),
+    return MaterialApp(      
+      home: Scaffold(      
+        appBar: AppBar(
+          title: Text('teste'),
+        ),
+        body: Text('teste 2'),        
+      ),
     );
   }
 }
