@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import './awnser.dart';
-import './question.dart';
+import './questionary.dart';
+import './result.dart';
 
 main() => runApp(PerguntasApp());
 
@@ -42,22 +42,16 @@ class _PerguntasAppState extends State<PerguntasApp> {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Questions App'),
-        ),
-        body: haveSelected
-            ? Column(
-                children: [
-                  Question(_questions[_selected]['texto']),
-                  ...responses.map((e) => Awnser(e, _response)).toList()
-                ],
-              )
-            : Center(
-                child: Text(
-                'Congrats!',
-                style: TextStyle(fontSize: 30, color: Colors.green),
-              )),
-      ),
+          appBar: AppBar(
+            title: Text('Questions App'),
+          ),
+          body: haveSelected
+              ? Questionary(
+                  responses: responses,
+                  response: _response,
+                  questions: _questions,
+                  selected: _selected)
+              : Result()),
     );
   }
 }
