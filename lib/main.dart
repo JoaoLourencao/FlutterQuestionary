@@ -8,46 +8,55 @@ main() => runApp(PerguntasApp());
 
 class _PerguntasAppState extends State<PerguntasApp> {
   var _selected = 0;
+  final List<Map<String, dynamic>> _questions = const [
+    {
+      'texto': 'Qual é a sua cor favorita?',
+      'respostas': ['Preto', 'Vermelho', 'Verde', 'Branco'],
+    },
+    {
+      'texto': 'Qual é o seu animal favorito?',
+      'respostas': ['Coelho', 'Cobra', 'Elefante', 'Leão'],
+    },
+    {
+      'texto': 'Qual é o seu instrutor favorito?',
+      'respostas': ['Maria', 'João', 'Leo', 'Pedro'],
+    }
+  ];
+
+  bool get haveSelected {
+    return _selected < _questions.length;
+  }
 
   void _response() {
-    setState(() {
-      _selected++;
-    });
-    print(_selected);
+    if (haveSelected) {
+      setState(() {
+        _selected++;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> questions = [
-      {
-        'texto': 'Qual é a sua cor favorita?',
-        'respostas': ['Preto', 'Vermelho', 'Verde', 'Branco'],
-      },
-      {
-        'texto': 'Qual é o seu animal favorito?',
-        'respostas': ['Coelho', 'Cobra', 'Elefante', 'Leão'],
-      },
-      {
-        'texto': 'Qual é o seu instrutor favorito?',
-        'respostas': ['Maria', 'João', 'Leo', 'Pedro'],
-      }
-    ];
-
-    List<Widget> responses = [];
-
-    for (var textResp in questions[_selected]['respostas']) {
-      responses.add(Awnser(textResp, _response));
-      print(textResp);
-    }
+    List<String> responses =
+        haveSelected ? _questions[_selected]['respostas'] : [];
 
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('teste'),
+          title: Text('Questions App'),
         ),
-        body: Column(
-          children: [Question(questions[_selected]['texto']), ...responses],
-        ),
+        body: haveSelected
+            ? Column(
+                children: [
+                  Question(_questions[_selected]['texto']),
+                  ...responses.map((e) => Awnser(e, _response)).toList()
+                ],
+              )
+            : Center(
+                child: Text(
+                'Congrats!',
+                style: TextStyle(fontSize: 30, color: Colors.green),
+              )),
       ),
     );
   }
