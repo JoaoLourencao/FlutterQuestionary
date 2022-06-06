@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class Awnser extends StatelessWidget {
   final String text;
   final void Function() onSelected;
-
-  Awnser(this.text, this.onSelected);
+  const Awnser(this.text, this.onSelected, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
