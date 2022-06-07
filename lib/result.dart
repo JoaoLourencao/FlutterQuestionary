@@ -12,11 +12,11 @@ class Result extends StatelessWidget {
 
   String get resultText {
     if (finalScore < 5)
-      return 'try again';
+      return 'try again!';
     else if (finalScore < 10)
-      return 'good job';
+      return 'good job!';
     else
-      return 'nice work';
+      return 'nice work!';
   }
 
   @override
